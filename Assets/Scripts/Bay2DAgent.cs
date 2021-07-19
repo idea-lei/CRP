@@ -27,7 +27,7 @@ public class Bay2DAgent : Agent {
     int count = 0;
 
     Bay bay;
-    int maxLabel = Parameters.MaxLabel;
+    int maxLabel = (Parameters.DimZ - 1) * Parameters.MaxLayer + 1;
     readonly float blockingDegreeCoefficient = 100;
     int blockingDegreeOfState;
     int relocationTimes = 0;
@@ -57,7 +57,7 @@ public class Bay2DAgent : Agent {
                 return;
             }
         }
-        bay = new Bay(Parameters.DimZ, Parameters.MaxLayer, Parameters.SpawnMaxLayer, maxLabel);
+        bay = new Bay(Parameters.DimZ, Parameters.MaxLayer, maxLabel);
         //Debug.Log(bay);
         Invoke(nameof(nextOperation), 0.1f); // to make sure all the commands are finished in this func
     }
@@ -283,7 +283,6 @@ public class Bay {
     public readonly int MaxTier;
     public readonly int DimZ;
 
-    private int initTier;
     private int maxLabel;
     public int MaxLabel => maxLabel;
 
@@ -345,14 +344,13 @@ public class Bay {
         }
     }
 
-    public Bay(int z, int t, int _initTier, int _maxLabel) {
+    public Bay(int z, int t, int _maxLabel) {
         layout = new Stack<Container2D>[z];
         for (int i = 0; i < z; i++) {
             layout[i] = new Stack<Container2D>();
         }
         MaxTier = t;
         DimZ = z;
-        initTier = _initTier;
         maxLabel = _maxLabel;
         assignValues(generateSequence(_maxLabel));
     }
@@ -421,7 +419,7 @@ public class Bay {
         int i = 0;
         while (i < arr.Length) {
             int z = UnityEngine.Random.Range(0, DimZ);
-            if (layout[z].Count >= initTier) continue;
+            if (layout[z].Count >= MaxTier) continue;
             if (stack(z, new Container2D(arr[i]))) i++;
         }
     }
