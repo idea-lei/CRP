@@ -27,7 +27,7 @@ public class Bay2DAgent : Agent {
     int count = 0;
 
     Bay bay;
-    int maxLabel = 6;
+    int maxLabel = Parameters.MaxLabel;
     readonly float blockingDegreeCoefficient = 100;
     int blockingDegreeOfState;
     int relocationTimes = 0;
@@ -49,10 +49,10 @@ public class Bay2DAgent : Agent {
 
         //int lowerRange = (int)envParams.GetWithDefault("amount", 16);
         //maxLabel = UnityEngine.Random.Range(lowerRange, 16 + 1);
-        maxLabel = 16;
+        //maxLabel = 26;
 
         if (!Academy.Instance.IsCommunicatorOn) {
-            if (count++ >= 200) {
+            if (count++ >= 500) {
                 name = "finished";
                 return;
             }
@@ -112,7 +112,7 @@ public class Bay2DAgent : Agent {
                 list.Add(layout[z, t] is null ? 0 : (1 - layout[z, t].priority / (float)bay.MaxLabel));
             }
 
-            Debug.Assert(list.Count == bay.DimZ + bay.MaxTier * (2 + bay.MaxTier) + 4);
+            Debug.Assert(list.Count == bay.DimZ + 4 + bay.MaxTier * (2 + bay.MaxTier));
             Debug.Assert(list.All(l => l <= 1 && l >= 0));
             ob.Add(list);
         }
@@ -211,6 +211,7 @@ public class Bay2DAgent : Agent {
             return;
         }
 
+        //Debug.Log(bay);
         RequestDecision();
     }
 }

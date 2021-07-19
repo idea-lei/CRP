@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2794918981074291651}
   - component: {fileID: 2794918981074291650}
   - component: {fileID: 2794918981074291661}
-  - component: {fileID: -4863050353003649295}
+  - component: {fileID: 4465403155525362824}
   m_Layer: 0
   m_Name: agent
   m_TagString: Untagged
@@ -50,12 +50,12 @@ MonoBehaviour:
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 0600000006000000
-    VectorActionSize: 0600000006000000
+      BranchSizes: 0500000005000000
+    VectorActionSize: 0500000005000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: c52d565edb3f2c0478bfe5cf53cdbd87, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 63f5b6fb40c082541bd2932d923ffe14, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: CRP
@@ -79,7 +79,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
---- !u!114 &-4863050353003649295
+--- !u!114 &4465403155525362824
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,6 +91,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd8012d5925524537b27131fef517017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SensorName: Bay2D
-  m_ObservableSize: 58
-  m_MaxNumObservables: 6
+  m_SensorName: BufferSensor
+  m_ObservableSize: 44
+  m_MaxNumObservables: 5

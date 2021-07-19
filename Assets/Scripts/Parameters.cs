@@ -9,10 +9,12 @@
     #endregion
 
     #region PlayGround
-    public static int DimZ = 6;
+    public static int DimZ = 5;
     public static int DimX = 1;
-    public static int MaxLayer = 6;
     public static int SpawnMaxLayer = 3;
+    public static int MaxLayer = 5;
+    public static int MaxLabel = 13;
+    
     public static readonly int MinDim = 0; // this is only for test (random generation), should be smaller than the min Dim value
 
     public static readonly float Gap_Container = 1f;
