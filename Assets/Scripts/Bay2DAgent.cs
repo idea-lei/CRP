@@ -52,14 +52,14 @@ public class Bay2DAgent : Agent {
         //maxLabel = 26;
 
         if (!Academy.Instance.IsCommunicatorOn) {
-            if (count++ >= 500) {
+            if (count++ >= 100) {
                 name = "finished";
                 return;
             }
         }
         bay = new Bay(Parameters.DimZ, Parameters.MaxLayer, Parameters.SpawnMaxLayer, maxLabel);
         //Debug.Log(bay);
-        Invoke(nameof(nextOperation), 0.1f);
+        Invoke(nameof(nextOperation), 0.1f); // to make sure all the commands are finished in this func
     }
 
     public override void CollectObservations(VectorSensor sensor) {
