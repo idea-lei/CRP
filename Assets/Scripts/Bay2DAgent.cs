@@ -304,7 +304,7 @@ public class Bay {
             var res = new Container2D[DimZ, MaxTier];
             var layout = Layout;
             for (int z = 0; z < DimZ; z++) {
-                for (int t = 0; t < DimZ; t++) {
+                for (int t = 0; t < MaxTier; t++) {
                     res[z, t] = t < layout[z].Count ? layout[z][t] : null;
                 }
             }
