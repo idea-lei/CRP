@@ -355,10 +355,6 @@ public class Bay {
         assignValues(generateSequence(_maxLabel));
     }
 
-    public bool CheckDim() {
-        return Layout.All(s => s.Count <= MaxTier);
-    }
-
     public bool IndexFull(int z) {
         return layout[z].Count >= MaxTier;
     }
