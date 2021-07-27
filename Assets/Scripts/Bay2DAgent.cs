@@ -65,6 +65,7 @@ public class Bay2DAgent : Agent {
     public override void CollectObservations(VectorSensor sensor) {
 
         var bd = bay.BlockingDegrees;
+        var bc = bay.BlockingCounts;
         //blockingDegreeOfState = bd.Sum();
 
         var layout = bay.LayoutAs2DArray;
@@ -97,6 +98,9 @@ public class Bay2DAgent : Agent {
             // since the value is always negative, use mirror value to restrict ob range in [0,1]
             list.Add(-bd[z] / blockingDegreeCoefficient);
 
+            // blocking count -- 1
+            list.Add(bc[z] / (float)bay.MaxTier);
+
             // container info -- maxTier * (2 + maxTier)
             for (int t = 0; t < bay.MaxTier; t++) {
 
@@ -112,7 +116,7 @@ public class Bay2DAgent : Agent {
                 list.Add(layout[z, t] is null ? 0 : (1 - layout[z, t].priority / (float)bay.MaxLabel));
             }
 
-            Debug.Assert(list.Count == bay.DimZ + 4 + bay.MaxTier * (2 + bay.MaxTier));
+            Debug.Assert(list.Count == bay.DimZ + 5 + bay.MaxTier * (2 + bay.MaxTier));
             Debug.Assert(list.All(l => l <= 1 && l >= 0));
             ob.Add(list);
         }
@@ -314,6 +318,8 @@ public class Bay {
 
     public int[] BlockingDegrees => layout.Select(s => BlockingDegree(s)).ToArray();
 
+    public int[] BlockingCounts => layout.Select(s => BlockingCount(s)).ToArray();
+
     public bool empty {
         get {
             foreach (var s in layout) {
@@ -437,6 +443,22 @@ public class Bay {
             int truncate = list.IndexOf(list.Min());
             hList = list.GetRange(truncate, list.Count - truncate);
             if (hList.Count > 1) foreach (int x in hList) degree += hList[0] - x;
+            list = list.GetRange(0, truncate);
+        }
+
+        return degree;
+    }
+
+    public int BlockingCount(Stack<Container2D> s) {
+        int degree = 0;
+        var list = s.Select(c => c.priority).ToList();
+        list.Reverse();
+
+        List<int> hList;
+        while (list.Count > 1) {
+            int truncate = list.IndexOf(list.Min());
+            hList = list.GetRange(truncate, list.Count - truncate);
+            if (hList.Count > 1) foreach (int x in hList) degree += 1;
             list = list.GetRange(0, truncate);
         }
 
