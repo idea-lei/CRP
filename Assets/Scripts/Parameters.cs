@@ -9,7 +9,7 @@
     #endregion
 
     #region PlayGround
-    public static int DimZ = 4;
+    public static int DimZ = 3;
     public static int DimX = 1;
     public static int MaxLayer = 4;
     
