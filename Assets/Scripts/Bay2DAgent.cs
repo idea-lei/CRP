@@ -65,7 +65,7 @@ public class Bay2DAgent : Agent {
     public override void CollectObservations(VectorSensor sensor) {
 
         var bd = bay.BlockingDegrees;
-        var bc = bay.BlockingCounts;
+        //var bc = bay.BlockingCounts;
         //blockingDegreeOfState = bd.Sum();
 
         var layout = bay.LayoutAs2DArray;
@@ -99,7 +99,7 @@ public class Bay2DAgent : Agent {
             list.Add(-bd[z] / blockingDegreeCoefficient);
 
             // blocking count -- 1
-            list.Add(bc[z] / (float)bay.MaxTier);
+            //list.Add(bc[z] / (float)bay.MaxTier);
 
             // container info -- maxTier * (2 + maxTier)
             for (int t = 0; t < bay.MaxTier; t++) {
@@ -116,7 +116,7 @@ public class Bay2DAgent : Agent {
                 list.Add(layout[z, t] is null ? 0 : (1 - layout[z, t].priority / (float)bay.MaxLabel));
             }
 
-            Debug.Assert(list.Count == bay.DimZ + 5 + bay.MaxTier * (2 + bay.MaxTier));
+            Debug.Assert(list.Count == bay.DimZ + 4 + bay.MaxTier * (2 + bay.MaxTier));
             Debug.Assert(list.All(l => l <= 1 && l >= 0));
             ob.Add(list);
         }
@@ -187,7 +187,7 @@ public class Bay2DAgent : Agent {
         //AddReward(-0.1f * c.relocationTimes / bay.MaxLabel);
 
         // step reward
-        AddReward(-0.1f);
+        AddReward(-0.2f);
 
 
         // state blocking degree 
